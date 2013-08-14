@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<AICO>
+  <SweepMode Value="1" />
+  <MaxIterations Value="100" />
+  <Tolerance Value="0.001" />
+  <Damping Value="0.001" />
+  <InitBwdMsg Value="0" />
+</AICO>
