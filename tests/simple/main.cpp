@@ -15,6 +15,7 @@ using namespace std;
 
 int main(int argn,char **argv)
 {
+	cout << "Starting AICO simple example\n";
 	XMLDocument doc;
 	if (doc.LoadFile("../aico.xml")!=XML_SUCCESS || !doc.RootElement()) {cerr<<"Can't load xml file\n"; return 1;}
 
@@ -27,6 +28,7 @@ int main(int argn,char **argv)
 	{
 		cerr << "Cannot initialise AICO!\n";
 	}
+	cout << "Successfully finished AICO simple example\n";
 	return 0;
 }
 

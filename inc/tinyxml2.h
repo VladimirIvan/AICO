@@ -25,9 +25,11 @@ distribution.
 #ifndef TINYXML2_INCLUDED
 #define TINYXML2_INCLUDED
 
+#include "common.h"
+
 #define TINYXML_CONFIG_EXPORT 1
 
-#define TINY_XML_EXPORT 
+#define TINY_XML_EXPORT _SymbolExport
 
 #ifdef ANDROID_NDK
 	#include <ctype.h>
@@ -51,6 +53,9 @@ distribution.
 /*
 	gcc: g++ -Wall tinyxml2.cpp xmltest.cpp -o gccxmltest.exe
 */
+
+namespace tinyxml2
+{
 
 #if defined( _DEBUG ) || defined( DEBUG ) || defined (__DEBUG__)
 	#ifndef DEBUG
@@ -102,8 +107,7 @@ static const int TIXML2_MAJOR_VERSION = 1;
 static const int TIXML2_MINOR_VERSION = 0;
 static const int TIXML2_PATCH_VERSION = 8;
 
-namespace tinyxml2
-{
+
 class XMLDocument;
 class XMLElement;
 class XMLAttribute;

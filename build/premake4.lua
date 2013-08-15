@@ -19,32 +19,8 @@ solution "AICO"
 
    -- A project defines one build target
 
-   project "AICO"
-      language "C++"
-      location ("../prj/"..(act).."/")
-      files {"../src/**.cpp", "../inc/**.h"}
-      includedirs { "../inc", "../src", "$(BOOST_ROOT)" } 
-      vpaths { ["Code/*"] = "../src/**.cpp", ["Headers/*"] = "../inc/**.h" }
-      kind "SharedLib"
-
-      configuration "Debug"
-         targetdir ("../lib") 
-	     debugdir ("../lib")
-         defines { "DEBUG" }
-         flags { "Symbols" }
-	     objdir ("../temp/"..(act).."Debug")
-	     targetsuffix "d"
- 
-      configuration "Release"
-         targetdir ("../lib")
-	 	 debugdir ("../lib")
-         defines { "NDEBUG" }
-         flags { "Optimize" } 
-	 objdir ("../temp/"..(act).."Release")
-
    project "Simple"
       language "C++"
-      location ("../prj/"..(act).."/test")
       files {"../tests/simple/**.cpp"}
       includedirs { "../inc", "../tests/simple/", "$(BOOST_ROOT)" } 
       vpaths { ["Code/*"] = "../tests/simple/**.cpp"}
@@ -52,7 +28,16 @@ solution "AICO"
       links { "AICO" }
       
       configuration { "linux", "gmake" }
-  		 prebuildcommands { "LD_RUN_PATH=$(LD_RUN_PATH):"..(cwd).."/../lib", "export LD_RUN_PATH", "LPATH=$(LPATH):"..(cwd).."/../lib", "export LPATH" }
+		prebuildcommands { "LD_RUN_PATH=$(LD_RUN_PATH):"..(cwd).."/../lib", "export LD_RUN_PATH", "LPATH=$(LPATH):"..(cwd).."/../lib", "export LPATH" }
+		location ("../prj/"..(act).."/test")
+
+	configuration { "vs*" }
+		location ("../prj/"..(act).."/")
+
+	configuration {"windows", "Debug"}
+		postbuildcommands { "copy ..\\..\\lib\\AICOd.dll ..\\..\\tests\\simple\\"..(act).."Debug" }
+	configuration {"windows", "Release"}
+		postbuildcommands { "copy ..\\..\\lib\\AICO.dll ..\\..\\tests\\simple\\"..(act).."Release" }
 
       configuration "Debug"
          targetdir ("../tests/simple/"..(act).."Debug") 
@@ -68,3 +53,26 @@ solution "AICO"
          flags { "Optimize" } 
 	 objdir ("../temp/tests/simple"..(act).."Release")
 
+   project "AICO"
+      language "C++"
+      location ("../prj/"..(act).."/")
+      files {"../src/**.cpp", "../inc/**.h"}
+      includedirs { "../inc", "../src", "$(BOOST_ROOT)" } 
+      vpaths { ["Code/*"] = "../src/**.cpp", ["Headers/*"] = "../inc/**.h" }
+      kind "SharedLib"
+      defines { "CONFIG_NONCLIENT_BUILD" }
+
+      configuration "Debug"
+         targetdir ("../lib") 
+	     debugdir ("../lib")
+         defines { "DEBUG" }
+         flags { "Symbols" }
+	     objdir ("../temp/"..(act).."Debug")
+	     targetsuffix "d"
+ 
+      configuration "Release"
+         targetdir ("../lib")
+	 	 debugdir ("../lib")
+         defines { "NDEBUG" }
+         flags { "Optimize" } 
+	 objdir ("../temp/"..(act).."Release")

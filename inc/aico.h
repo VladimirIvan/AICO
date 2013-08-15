@@ -8,8 +8,8 @@
 #ifndef AICO_H_
 #define AICO_H_
 
+#include "common.h"
 #include "Eigen/Dense"
-#include "tinyxml2.h"
 #include "SystemAbstraction.h"
 
 using namespace Eigen;
@@ -17,7 +17,7 @@ using namespace tinyxml2;
 
 namespace SOC {
 
-class AICO {
+class _SymbolExport AICO {
 public:
 	enum AICOSweepMode
 	{
@@ -77,49 +77,6 @@ public:
 
 protected:
 	virtual void InitMessages();
-
-public:
-
-	inline bool GetParam(XMLElement* Data, const char* Name, double& Value)
-	{
-		XMLElement* Node;
-		Node=Data->FirstChildElement(Name);
-		if(Node)
-		{
-			if(Node->QueryDoubleAttribute("Value",&Value)==XML_NO_ERROR) return true;
-		}
-		return false;
-	};
-	inline bool GetParam(XMLElement* Data, const char* Name, int& Value)
-	{
-		XMLElement* Node;
-		Node=Data->FirstChildElement(Name);
-		if(Node)
-		{
-			if(Node->QueryIntAttribute("Value",&Value)==XML_NO_ERROR) return true;
-		}
-		return false;
-	};
-	inline bool GetParam(XMLElement* Data, const char* Name, uint& Value)
-	{
-		XMLElement* Node;
-		Node=Data->FirstChildElement(Name);
-		if(Node)
-		{
-			if(Node->QueryUnsignedAttribute("Value",&Value)==XML_NO_ERROR) return true;
-		}
-		return false;
-	};
-	inline bool GetParam(XMLElement* Data, const char* Name, bool& Value)
-	{
-		XMLElement* Node;
-		Node=Data->FirstChildElement(Name);
-		if(Node)
-		{
-			if(Node->QueryBoolAttribute("Value",&Value)==XML_NO_ERROR) return true;
-		}
-		return false;
-	};
 };
 
 } /* namespace AICO */

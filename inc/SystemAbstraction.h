@@ -8,9 +8,11 @@
 #ifndef SYSTEMABSTRACTION_H_
 #define SYSTEMABSTRACTION_H_
 
+#include "common.h"
+
 namespace SOC {
 
-class SystemAbstraction {
+class _SymbolExport SystemAbstraction {
 public:
 	SystemAbstraction();
 	virtual ~SystemAbstraction();
