@@ -71,7 +71,7 @@ public:
 	virtual ~AICO(); ///< Destructor
 	virtual bool Init(SystemAbstraction* _sys, XMLElement* Data);
 	virtual void Reset();
-	bool IterateToConvergence(MatrixXd *q_init);
+	bool IterateToConvergence(MatrixXd *q_init=NULL);
 	void InitTrajectory(MatrixXd *q_init);
 	virtual double Step();
 

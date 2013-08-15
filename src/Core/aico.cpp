@@ -6,13 +6,18 @@
  */
 
 #include "aico.h"
+#include <iostream>
 
 #define DELNULL(X) if(X!=NULL) delete X; X=NULL;
 #define GET_ATTRIBUTE(X,Y) XML_NO_ERROR
 
+using namespace std;
+
 namespace SOC {
 
-AICO::AICO() {
+AICO::AICO()
+{
+	sys=NULL;
 	BwdMsg_v=BwdMsg_Vinv=s=Sinv=v=Vinv=r=R=rhat=NULL;
 	phiBar=JBar=NULL;
 	Psi=b=Binv=q=xhat=NULL;
@@ -90,6 +95,7 @@ bool AICO::Init(SystemAbstraction* _sys, XMLElement* Data)
 	if(!GetParam(Data, "InitBwdMsg", InitBwdMsg)) return false;
 	InitMessages();
 	Initialized=true;
+	return true;
 }
 
 void AICO::InitMessages()
@@ -97,7 +103,7 @@ void AICO::InitMessages()
 
 }
 
-bool AICO::IterateToConvergence(MatrixXd *q_init=NULL)
+bool AICO::IterateToConvergence(MatrixXd *q_init)
 {
 	if(!Initialized) return false;
 	if(q_init) InitTrajectory(q_init);

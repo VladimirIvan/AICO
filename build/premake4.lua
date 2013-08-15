@@ -4,6 +4,8 @@ printf("You need Premake version 4.4 or higher!")
 return
 end
 
+local cwd  = os.getcwd()
+
 local act=""
 if (_ACTION)~=nil then
    act = _ACTION
@@ -40,4 +42,29 @@ solution "AICO"
          flags { "Optimize" } 
 	 objdir ("../temp/"..(act).."Release")
 
+   project "Simple"
+      language "C++"
+      location ("../prj/"..(act).."/test")
+      files {"../tests/simple/**.cpp"}
+      includedirs { "../inc", "../tests/simple/", "$(BOOST_ROOT)" } 
+      vpaths { ["Code/*"] = "../tests/simple/**.cpp"}
+      kind "ConsoleApp"
+      links { "AICO" }
+      
+      configuration { "linux", "gmake" }
+  		 prebuildcommands { "LD_RUN_PATH=$(LD_RUN_PATH):"..(cwd).."/../lib", "export LD_RUN_PATH", "LPATH=$(LPATH):"..(cwd).."/../lib", "export LPATH" }
+
+      configuration "Debug"
+         targetdir ("../tests/simple/"..(act).."Debug") 
+	     debugdir ("../tests/simple/"..(act).."Debug")
+         defines { "DEBUG" }
+         flags { "Symbols" }
+	     objdir ("../temp/tests/simple/"..(act).."Debug")
+ 
+      configuration "Release"
+         targetdir ("../bin/tests/simple/"..(act).."Release")
+	 	 debugdir ("../bin/tests/simple/"..(act).."Release")
+         defines { "NDEBUG" }
+         flags { "Optimize" } 
+	 objdir ("../temp/tests/simple"..(act).."Release")
 
