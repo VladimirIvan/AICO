@@ -83,7 +83,7 @@ typedef int int32;
 typedef short int16;
 typedef char int8;
 // define uint64 type
-#if CONFIG__COMPILER == CONFIG__COMPILER_MSVC
+#if CONFIG_COMPILER == CONFIG__COMPILER_MSVC
 	typedef unsigned __int64 uint64;
 	typedef __int64 int64;
 #else

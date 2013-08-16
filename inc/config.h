@@ -49,27 +49,28 @@
 // Windows Settings
 #if CONFIG_PLATFORM == CONFIG_PLATFORM_WIN32
 
-#	if defined( CONFIG_STATIC_LIB )
+#   if defined( CONFIG_STATIC_LIB )
 		// Linux compilers don't have symbol import/export directives.
 #   	define _SymbolExport
 #   	define _SymbolPrivate
 #   else
 	// disable: "<type> needs to have dll-interface to be used by clients'
 	// Happens on STL member variables which are not public therefore is ok
-#		pragma warning ( disable : 4251 )
-#		pragma warning ( disable : 4193 )
-#		pragma warning ( disable : 4275 )
+#	pragma warning ( disable : 4251 )
+#	pragma warning ( disable : 4193 )
+#	pragma warning ( disable : 4275 )
 #   	if defined( CONFIG_NONCLIENT_BUILD )
-#       	define _SymbolExport __declspec( dllexport )
+#        define _SymbolExport __declspec( dllexport )
 #   	else
-#           if defined( __MINGW32__ )
-#               define _SymbolExport
-#           else
-#       	    define _SymbolExport __declspec( dllimport )
-#           endif
+#         if defined( __MINGW32__ )
+#           define _SymbolExport
+#         else
+#           define _SymbolExport __declspec( dllimport )
+#         endif
 #   	endif
-#   	define _SymbolPrivate
-#	endif
+#   	  define _SymbolPrivate
+
+#    endif
 
 // Win32 compilers use _DEBUG for specifying debug builds.
 #   if defined(_DEBUG)
@@ -79,7 +80,9 @@
 #   endif
 
 #  define CONFIG_UNICODE_SUPPORT 1
-
+#else
+#    define _SymbolExport
+#    define _SymbolPrivate
 #endif 
 
 //----------------------------------------------------------------------------

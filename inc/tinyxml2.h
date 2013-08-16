@@ -25,7 +25,7 @@ distribution.
 #ifndef TINYXML2_INCLUDED
 #define TINYXML2_INCLUDED
 
-#include "common.h"
+#include "config.h"
 
 #define TINYXML_CONFIG_EXPORT 1
 
