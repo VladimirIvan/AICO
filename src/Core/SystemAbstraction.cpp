@@ -9,6 +9,8 @@
 
 namespace SOC {
 
+	using namespace Eigen;
+
 SystemAbstraction::SystemAbstraction() {
 	// TODO Auto-generated constructor stub
 
@@ -16,6 +18,13 @@ SystemAbstraction::SystemAbstraction() {
 
 SystemAbstraction::~SystemAbstraction() {
 	// TODO Auto-generated destructor stub
+}
+
+MatrixXd SystemAbstraction::GetX0()
+{
+	MatrixXd ret;
+	GetX0(ret);
+	return ret;
 }
 
 } /* namespace SOC */

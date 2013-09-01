@@ -37,23 +37,28 @@ private:
 	MatrixXd* BwdMsg_v; ///< Use backward mean initialisation.
 	MatrixXd* BwdMsg_Vinv; ///< Use backward covariance initialisation.
 	AICOSweepMode SweepMode; ///< Sweep mode used for iterations.
+	uint T; ///< Number of time steps
 
 	///@name Messages
 	///@{ Forward message.
-	MatrixXd *s, *Sinv; ///@}
+	MatrixXd *s;
+	Array<MatrixXd, Dynamic,1> *Sinv;///@}
 	///@{ Backward message.
-	MatrixXd *v, *Vinv; ///@}
+	MatrixXd *v;
+	Array<MatrixXd, Dynamic,1> *Vinv; ///@}
 	///@{ Task message.
-	MatrixXd *r, *R, *rhat; ///@}
+	MatrixXd *r, *rhat;
+	Array<MatrixXd, Dynamic,1> *R; ///@}
 	///@{ Task cost terms.
-	Array<MatrixXd*, Dynamic,1> *phiBar, *JBar; ///@}
-	MatrixXd *Psi; ///< All transition cost terms.
+	Array<MatrixXd, Dynamic,1> *phiBar, *JBar; ///@}
 	///@{ Belief.
-	MatrixXd *b, *Binv; ///@}
+	MatrixXd *b;
+	Array<MatrixXd, Dynamic,1> *Binv; ///@}
 	///@{ q-trajectory (MAP), and point of linearization.
 	MatrixXd *q, *xhat; ///@}
 	///@{ Old message.
-	MatrixXd *s_old, *Sinv_old, *v_old, *Vinv_old, *r_old, *R_old, *rhat_old, *b_old, *Binv_old, *q_old, *qhat_old; ///@}
+	MatrixXd *s_old, *v_old, *r_old, *rhat_old, *b_old, *q_old, *qhat_old; 
+	Array<MatrixXd, Dynamic,1> *Sinv_old, *Vinv_old, *R_old, *Binv_old; ///@}
 	MatrixXd *DampingReference; ///< Damping reference.
 	double Cost; ///< Cost of MAP trajectory.
 	double Cost_old; ///< Old cost of MAP trajectory.
@@ -61,7 +66,8 @@ private:
 
 	///@{ Processes...
 	SystemAbstraction* sys; ///< Reference to dynamic system abstraction class.
-	MatrixXd *A, *tA, *Ainv, *invtA, *a, *B, *tB, *Winv, *Hinv, *Q, *Abar, *tAbar, *Vhatinv, *vhat; ///@}
+	MatrixXd *a, *vhat; 
+	Array<MatrixXd, Dynamic,1> *A, *tA, *Ainv, *invtA, *B, *tB, *Winv, *Hinv, *Q, *Abar, *tAbar;///@}
 	uint Sweep; ///< Number of sweeps so far.
 	uint Scale; ///< Scale of this AICO in a multi-scale approach.
 	bool Initialized; ///< True if Init() has been called succesfully.
@@ -74,6 +80,7 @@ public:
 	bool IterateToConvergence(MatrixXd *q_init=NULL);
 	void InitTrajectory(MatrixXd *q_init);
 	virtual double Step();
+	virtual void RememberOldState();
 
 protected:
 	virtual void InitMessages();

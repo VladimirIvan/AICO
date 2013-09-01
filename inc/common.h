@@ -91,6 +91,8 @@ typedef char int8;
 	typedef long long int64;
 #endif
 
+#define DELNULL(X) if(X!=NULL) delete X; X=NULL;
+
 using namespace tinyxml2;
 
 inline bool GetParam(XMLElement* Data, const char* Name, double& Value)
